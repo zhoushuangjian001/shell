@@ -880,3 +880,334 @@
     123abcd
     fgh345
     ```
+
+### 九、常用通配字符
+
+- #### 常用通配符
+
+  | 符号            | 含义                          |
+  | --------------- | ----------------------------- |
+  | \*              | 匹配 0 个和多个字符           |
+  | ？              | 匹配任意单个字符              |
+  | [list]          | 匹配 list 中任意单个字符      |
+  | {str1,str2,...} | 匹配 str1,str2 或者更多字符串 |
+
+- #### 实例
+
+  说明: 在目录 09-shell 中包含 15 个文件， file1、file2、file1..file12.jpg。生成指令为：
+
+  ```bash
+  touch file1 file2 file{1..12}.jpg
+  ```
+
+  输出结果为：
+
+  ```bash
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file1
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file1.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file10.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file11.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file12.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file2
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file2.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file3.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file4.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file5.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file6.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file7.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file8.jpg
+  -rw-r--r--  1 network  staff  0 10 12 11:13 file9.jpg
+  ```
+
+  - `*` 通配
+    匹配所有的文件，指令是:
+
+    ```bash
+    ls -l file*
+    ```
+
+    输出结果为：
+
+    ```bash
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file1
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file1.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file10.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file11.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file12.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file2
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file2.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file3.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file4.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file5.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file6.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file7.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file8.jpg
+    ```
+
+  - `?` 通配
+    匹配文件 file1 和 file2 ,指令是:
+
+    ```bash
+    ls -l file?
+    ```
+
+    输出结果为:
+
+    ```bash
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file1
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file2
+    ```
+
+  - `[list]` 通配
+    匹配文件 file1-file9.jpg ,指令是:
+
+    ```bash
+    ls -l file[1-9].jpg
+    ```
+
+    输出结果为:
+
+    ```bash
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file1.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file2.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file3.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file4.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file5.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file6.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file7.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file8.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file9.jpg
+    ```
+
+  - `{str1,str2...}` 通配
+    匹配文件 file11.jpg、file10.jpg,指令是:
+    ```bash
+    ls -l file{10,11,12}.jpg
+    ```
+    结果输出:
+    ```bash
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file10.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file11.jpg
+    -rw-r--r--  1 network  staff  0 10 12 11:13 file12.jpg
+    ```
+
+### 十、 引号的作用
+
+- #### 种类
+
+  1. 双引号
+  2. 单引号
+  3. 反撇号
+
+- #### 种类介绍
+
+  - 双引号
+
+    把引号的内容当成整体看待，允许 $ 符号引用其他变量
+
+  - 单引号
+
+    会把引号的内容，当成整体看待，不允许引用其他变量
+
+  - 反撇号
+
+    反撇号和 $() 符号一样，引号或者括号里面的命令优先执行，如果存在嵌套反撇号不可使用。
+
+### 十一、脚本基本写法
+
+脚本的基本写法。
+
+- #### 脚本第一行
+
+  `#!` 指定解释器，比写。
+
+- #### 脚本第二部分
+
+  使用 `#` 进行注释说明，对脚本基本信息描述。例如：
+
+  ```bash
+  #! /bin/env bash
+
+  # 以下内容对脚本信息描述
+  # Name: 名字
+  # Desc: 描述
+  # Path: 存放路径
+  # Usage: 用法
+  # Update: 更新时间
+
+  commands
+  ```
+
+- #### 脚本第三部分
+
+  脚本要实现功能的代码。
+
+### 十二、 脚本的执行
+
+- #### 标准执行方式
+
+  ```bash
+  chmod +x 文件.sh
+  ```
+
+  标准脚本的执行必须有可执行权限。
+
+- #### 非标准执行方式
+
+  直接在命令行中指定解释器执行。例如:
+
+  ```bash
+  bash 文件.sh
+
+  sh 文件.sh
+
+  dash 文件.sh
+
+  source 文件.sh
+  ```
+
+  注意:
+
+  ```bash
+  -x: 常用于脚本的排错
+  -n: 检查脚本的语法是否有错
+  ```
+
+  - `-x` 的执行输出
+    指令 `sh -x 12-shell.sh`, 输出结果是:
+    ```bash
+    + echo 'hello world'
+    hello world
+    + echo 'hello world'
+    hello world
+    ```
+  - `-n` 的语法检查
+    执令 `sh -n 12-shell.sh`, 输出结果是:
+
+    ```bash
+    // 12-shell.sh 的内容
+     1  #! /bin/env bash
+     2
+     3  # 注释
+     4  # Name: 第一个脚本
+     5  # Desc: 打印 hello world
+     6
+     7  echo "hello world"
+     8  echo "hello world"
+     9
+    10  if 2 > 1
+    11  else
+    12      echo "测试"
+    13  endif
+    14
+
+    // 输出结果
+    12-shell.sh: line 11: syntax error near unexpected token `else'
+    12-shell.sh: line 11: `else'
+    ```
+
+### 十三、小试牛刀
+
+- #### 题目
+
+  1. 删除目录 `13-shell` 中的所有文件
+  2. 然后再 `13-shell` 目录中创建 3 个目录，分别是 dir1-dir3.
+  3. 拷贝 /etc/host 文件到 dir1 目录里
+  4. 最后打印任务完成时间
+
+- #### 解答
+
+  脚本的指令：
+
+  ```bash
+  #! /bin/env bash
+
+  # Name: 小试牛刀
+  # Desc: 文件操作
+
+  # 1.删除文件 13-shell 中的所有文件
+  rm -rf 13-shell/*
+
+  # 2.创建目录 dir1-dir3
+  mkdir 13-shell/dir{1..3}
+
+  # 3.拷贝 ~/etc/hosts 到目录 dir1中
+  cp /etc/hosts 13-shell/dir1
+
+  # 4.输出完成时间
+  echo "$(date +'%F %T')"
+  ```
+
+  指令 `sh -x 13-shell.sh`的输出是:
+
+  ```bash
+  + rm -rf 13-shell/dir1 13-shell/dir2 13-shell/dir3
+  + mkdir 13-shell/dir1 13-shell/dir2 13-shell/dir3
+  + cp /etc/hosts 13-shell/dir1
+  ++ date '+%F %T'
+  + echo '2021-10-12 17:19:07'
+  2021-10-12 17:19:07
+  ```
+
+### 十四、变量
+
+- #### 变量是什么
+
+  变量是用来保存临时数据的，该数据是可以变化的。
+
+- #### 什么时候需要定义变量
+
+  - 如果某个内容需要多次使用，并且在代码中重复出现，那么可以使用变量表示该内容。这样在修改内容的时候，仅需要修改变量的值。
+
+  - 在代码运作的过程中，可能把某些命令的结果保存起来，后续代码需要使用这些结果，就可以直接使用这个变量。
+
+- #### 变量如何定义
+
+  ```bash
+  变量名=变量值
+  ```
+
+  举例说明:
+
+  ```bash
+  A=hello  // 定义变量
+  echo $A  // 调用变量A，需要付费，美元
+  echo ${A} // 还可以这样调用，同样要付钱
+
+  A=world  // 变量是可变的
+  echo $A  // 不管变量是什么，只要调用都要给钱
+  unset A  // 取消变量
+  ```
+
+- #### 变量名定义规则
+
+  - 变量名区分大小写，例如：
+    ```bash
+    A=hello
+    a=world
+    echo $A
+      hello
+    echo $a
+      world
+    ```
+  - 变量名不能使用特殊符号
+
+    ```bash
+    ?B=11
+    // 报错: zsh: no matches found: ?B=11
+    ```
+
+  - 变量名不能以数字开头
+    ```bash
+    1B=11
+    // 报错: zsh: command not found: 1B=11
+    ```
+  - 等号两边不能有空格
+
+    ```bash
+    A= 22
+    // 报错: zsh: command not found: 22
+
+    A =22
+    // 报错: zsh: 22 not found
+    ```
