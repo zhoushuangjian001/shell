@@ -1652,3 +1652,105 @@
   [[ $A = hello ]];echo $?
   // 输出 1
   ```
+
+### 二十、流程控制
+
+- #### if 结构
+
+  ```bash
+  // 第一种
+  if [ 条件 ];then
+    command
+    command
+  fi
+
+  // 第二种
+  if test 条件;then
+    command
+    command
+  fi
+
+  // 第三种
+  if [[ 条件 ]];then
+    command
+    command
+  fi
+  ```
+
+- #### if...else...fi 结构
+
+  ```bash
+  if [ 条件 ];then
+      command
+    else
+      command
+  fi
+  ```
+
+- #### if...elif...else 结构
+
+  ```bash
+  if [ 条件 ];then
+      command
+    elif
+      command
+    else
+      command
+  fi
+  ```
+
+- #### 实例
+
+  - 例子 1 (20-shell.sh)
+    让用户输入字符串，如果输入的是 `hello`,打印 `world`。否者打印请输入 `hello`。代码：
+
+    ```bash
+    #!/bin/env bash
+
+    read -p "请输入一个字符串:" str
+    if [ "$str" = "hello" ];then
+        echo "word"
+    else
+        echo "请输入hello!"
+    fi
+    ```
+
+  - 例子 2 (20-shell-1.sh)
+    判断当前主机和远程主机是否 `ping` 通。实例：
+
+    ```bash
+    #!/bin/env bash
+
+    #Name: 判断当前主机和远程主机是否互通
+
+    # 交互式定义变量，让用户自己决定 ping 那个主机
+    read -p "请输入你要ping的主机IP:" ip
+
+    # 使用ping程序判断主机是否互通
+    // -c1 是控制次数
+    // /dev/null 释放结果
+    ping -c1 $ip &> /dev/null
+    if [ $? -eq 0 ];then
+            echo "互通的"
+        else
+            echo "不互通"
+    fi
+    ```
+
+  - 例子 3 (20-shell-2.sh)
+    判断 `web` 服务器中 `httpd` 进程是否存在。实例：
+
+    ```bash
+    #!/bin/env bash
+
+    #Name: 判断一个进程是否存在
+    read -p "请输入进程:" process
+    # 查看进程
+    pgrep $process &>/dev/null
+    # 判断
+    if [  $? -ne 0 ];then
+        echo "进程不存在"
+    else
+        echo "进程存在"
+    fi
+    ```
